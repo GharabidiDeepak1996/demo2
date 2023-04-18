@@ -5,6 +5,7 @@ import {
   FlatList,
   StyleSheet,
   Text,
+  Linking,
   StatusBar,
   ToastAndroid,
 } from "react-native";
@@ -42,15 +43,42 @@ const DATA = [
 ];
 
 const Item = ({
+  bookingId,
+  tripId,
+  companyId,
+  branchId,
+  customerId,
+  customerName,
+  serviceType,
+  pickupTime,
+  noPax,
+  pickupNotes,
+  title,
   name,
-  pickupFrom,
-  noOfPickups,
-  dropOffAdd,
-  pickUpTime,
-  contact,
+  mobile,
+  email,
+  airlineCode,
   flightNo,
-  gate,
   terminal,
+  flightSchTime,
+  commissionAgentId,
+  greeterId,
+  greeterName,
+  statusId,
+  statusName,
+  onSiteTime,
+  boardTime,
+  pickupFrom,
+  dropOffAdd,
+  // name,
+  // pickupFrom,
+  // noOfPickups,
+  // dropOffAdd,
+  // pickUpTime,
+  // contact,
+  // flightNo,
+  // gate,
+  // terminal,
   navigation,
 }) => (
   <View style={styles.containerNew}>
@@ -65,7 +93,7 @@ const Item = ({
             color: "black",
           }}
         >
-          PAX {noOfPickups}
+          PAX {noPax}
         </Text>
       </View>
 
@@ -80,7 +108,11 @@ const Item = ({
         <View
           style={{ backgroundColor: "seagreen", borderRadius: 25, padding: 9 }}
         >
-          <MaterialCommunityIcons name={"ios-call"} color={"#fff"} size={22} />
+          <MaterialCommunityIcons
+           name={"ios-call"}
+            color={"#fff"} 
+            size={22}
+            onPress={()=>{Linking.openURL('tel:'+mobile);}} />
         </View>
       </View>
     </View>
@@ -105,7 +137,7 @@ const Item = ({
         }}
       >
         <View>
-          <Text style={{ fontSize: 18, fontWeight: "bold" }}>{pickUpTime}</Text>
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>{pickupTime}</Text>
         </View>
       </View>
     </View>
@@ -126,12 +158,20 @@ const Item = ({
         style={styles.materialButtonPrimary}
         onPress={() => {
           navigation.navigate("TripDetailsScreen",{
-              passengerName: name,
+            passengerName: name,
             pickUp: pickupFrom,
-            pickUpTime: pickUpTime,
-            pickUpNo: noOfPickups,
             dropOff: dropOffAdd,
-            contactNumber: contact,
+            pickUpTime: pickupTime,
+            trip:tripId,
+            noPax: noPax,
+            airlineCode:airlineCode,
+            flightNo: flightNo,
+            terminal:terminal,
+            flightSchTime: flightSchTime,
+            newGreeterId:greeterId,
+            greeterName:greeterName,
+            newStatusId:statusId,
+            statusName:statusName
           })
           // navigation.navigate("TransportDetails", {
           //   passengerName: name,
@@ -201,15 +241,34 @@ export default function HomeScreen({ navigation }) {
         data={data}
         renderItem={({ item }) => (
           <Item
-            name={item.first_name +" "+ item.last_name}
-            pickupFrom={item.airline_code}
-            noOfPickups={item.no_of_pax}
-            dropOffAdd={item.airline_code}
-            pickUpTime={item.pickup_time}
-            contact={item.mobile}
-            flightNo={item.flight_no}
-            terminal={item.terminal}
-            navigation={navigation}
+          bookingId={item.booking_id}
+          tripId={item.trip_id}
+          companyId={item.company_id}
+          branchId={item.branch_id}
+          customerId={item.customer_id}
+          customerName={item.customer_name}
+          serviceType={item.service_type}
+          pickupTime={item.pickup_time}
+          noPax={item.no_of_pax}
+          pickupNotes={item.pickup_notes}
+          title={item.title}
+          name={item.first_name +" "+ item.last_name}
+          mobile={item.mobile}
+          email={item.email}
+          airlineCode={item.airline_code}
+          flightNo={item.flight_no}
+          terminal={item.terminal}
+          flightSchTime={item.flight_sch_time}
+          commissionAgentId={item.commission_agent_id}
+          greeterId={item.greeter_id}
+          greeterName={item.greeter_name}
+          statusId={item.status_id}
+          statusName={item.status_name}
+          onSiteTime={item.on_site_time}
+          boardTime={item.board_time}
+          pickupFrom={"Mumbai"}
+          dropOffAdd={"Pune"}
+          navigation={navigation}
           />
         )}
         keyExtractor={(itemNew) => itemNew.id}
