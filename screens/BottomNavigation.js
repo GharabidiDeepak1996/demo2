@@ -27,7 +27,7 @@ export default function BottomNavigation() {
       headerShown:false,
       tabBarShowLabel:true,
     
-      tabBarStyle: { backgroundColor:"#1a1a1a", height : 60, borderTopColor:"#ffffff" },
+      tabBarStyle: { backgroundColor:"#1a1a1a", height : 60,paddingBottom:10,paddingTop:10, borderTopColor:"#ffffff" },
       tabBarIcon: ({color,size }) => {
         const icons = {
             Trips: 'car',
